@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{64A95F66-C0D2-4759-A422-35CB5857A67E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Services.CouponAPI", "Orange.Services.CouponAPI\Orange.Services.CouponAPI.csproj", "{CF546E77-34F2-433E-BFD7-E0297D23997D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orange.Services.CouponAPI", "Orange.Services.CouponAPI\Orange.Services.CouponAPI.csproj", "{CF546E77-34F2-433E-BFD7-E0297D23997D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Web", "Orange.Web\Orange.Web.csproj", "{098A4FB1-F4FE-4CC5-9587-7B9B03495DAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +25,17 @@ Global
 		{CF546E77-34F2-433E-BFD7-E0297D23997D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF546E77-34F2-433E-BFD7-E0297D23997D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF546E77-34F2-433E-BFD7-E0297D23997D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{098A4FB1-F4FE-4CC5-9587-7B9B03495DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098A4FB1-F4FE-4CC5-9587-7B9B03495DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098A4FB1-F4FE-4CC5-9587-7B9B03495DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098A4FB1-F4FE-4CC5-9587-7B9B03495DAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CF546E77-34F2-433E-BFD7-E0297D23997D} = {64A95F66-C0D2-4759-A422-35CB5857A67E}
+		{098A4FB1-F4FE-4CC5-9587-7B9B03495DAA} = {A39221E2-A6DE-4DE9-B2B6-315E06087F70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F15CBF43-3DB1-4040-932C-3424F184C2DE}
