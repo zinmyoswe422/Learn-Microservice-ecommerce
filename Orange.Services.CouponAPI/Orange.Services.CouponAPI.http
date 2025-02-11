@@ -1,0 +1,6 @@
+@Orange.Services.CouponAPI_HostAddress = http://localhost:5124
+
+GET {{Orange.Services.CouponAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
