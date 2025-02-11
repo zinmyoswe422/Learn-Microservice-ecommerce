@@ -7,7 +7,8 @@ using Orange.Services.CouponAPI.Models.Dto;
 
 namespace Orange.Services.CouponAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/coupon")]
     [ApiController]
     public class CouponAPIController : ControllerBase
     {
