@@ -98,7 +98,7 @@ namespace Orange.Services.CouponAPI.Controllers
 
         [HttpPut]
         [Route("UpdateCoupon")]
-        public ResponseDto put([FromBody] CouponDto couponDto)
+        public ResponseDto Put([FromBody] CouponDto couponDto)
         {
             try
             {
