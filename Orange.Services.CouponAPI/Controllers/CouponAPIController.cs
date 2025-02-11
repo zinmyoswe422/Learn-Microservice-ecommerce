@@ -56,5 +56,88 @@ namespace Orange.Services.CouponAPI.Controllers
             }
             return _response;
         }
+
+        [HttpGet]
+        [Route("GetZinByCode/{code}")]
+        public ResponseDto GetZinByCode(string code)
+        {
+            try
+            {
+                Coupon zinobj2 = _db.Coupons.First(u => u.CouponCode.ToLower() == code.ToLower());
+                _response.Result = _mapper.Map<CouponDto>(zinobj2);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+
+        [HttpPost]
+        [Route("AddCoupon")]
+        public ResponseDto Post([FromBody]CouponDto couponDto)
+        {
+            try
+            {
+                Coupon zinobj2 = _mapper.Map<Coupon>(couponDto);
+                _db.Coupons.Add(zinobj2);
+                _db.SaveChanges();
+
+
+                _response.Result = _mapper.Map<CouponDto>(zinobj2);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+        [HttpPut]
+        [Route("UpdateCoupon")]
+        public ResponseDto put([FromBody] CouponDto couponDto)
+        {
+            try
+            {
+                Coupon zinobj2 = _mapper.Map<Coupon>(couponDto);
+                _db.Coupons.Update(zinobj2);
+                _db.SaveChanges();
+
+
+                _response.Result = _mapper.Map<CouponDto>(zinobj2);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+        [HttpDelete]
+        [Route("DeleteCoupon")]
+        public ResponseDto Delete(int id)
+        {
+            try
+            {
+                Coupon zinobj2 = _db.Coupons.First(u=>u.CouponId == id);
+                _db.Coupons.Remove(zinobj2);
+                _db.SaveChanges();
+
+
+                
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+            return _response;
+        }
+
+
     }
 }
