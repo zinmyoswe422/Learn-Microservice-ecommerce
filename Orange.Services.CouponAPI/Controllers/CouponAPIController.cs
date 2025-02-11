@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Orange.Services.CouponAPI.Data;
 using Orange.Services.CouponAPI.Models;
 using Orange.Services.CouponAPI.Models.Dto;
@@ -12,10 +13,12 @@ namespace Orange.Services.CouponAPI.Controllers
     {
         private readonly AppDbContext _db;
         private ResponseDto _response;
+        private IMapper _mapper;
 
-        public CouponAPIController(AppDbContext db) 
+        public CouponAPIController(AppDbContext db, IMapper mapper) 
         {
            _db = db;
+           _mapper = mapper;
            _response = new ResponseDto();
         }
 
@@ -24,8 +27,9 @@ namespace Orange.Services.CouponAPI.Controllers
         {
             try
             {
-                IEnumerable<Coupon> objList = _db.Coupons.ToList();
-                _response.Result = objList;
+                IEnumerable<Coupon> objList2 = _db.Coupons.ToList();
+                _response.Result = objList2;
+                _response.Result = _mapper.Map<IEnumerable<CouponDto>>(objList2);
             }
             catch (Exception ex)
             {
@@ -43,6 +47,7 @@ namespace Orange.Services.CouponAPI.Controllers
             {
                 Coupon obj2 = _db.Coupons.First(u=>u.CouponId==id);
                 _response.Result = obj2;
+                _response.Result = _mapper.Map<CouponDto>(obj2);
             }
             catch (Exception ex)
             {
