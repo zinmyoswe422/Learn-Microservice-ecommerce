@@ -77,7 +77,7 @@ namespace Orange.Services.CouponAPI.Controllers
 
 
 		[HttpPost]
-		[Route("AddCoupon")]
+		//[Route("AddCoupon")]
 		public ResponseDto Post([FromBody] CouponDto couponDto)
 		{
 			try
@@ -98,7 +98,7 @@ namespace Orange.Services.CouponAPI.Controllers
 		}
 
 		[HttpPut]
-		[Route("UpdateCoupon")]
+		//[Route("UpdateCoupon")]
 		public ResponseDto Put([FromBody] CouponDto couponDto)
 		{
 			try
@@ -119,7 +119,7 @@ namespace Orange.Services.CouponAPI.Controllers
 		}
 
 		[HttpDelete]
-		[Route("DeleteCoupon")]
+		//[Route("DeleteCoupon")]
 		public ResponseDto Delete(int id)
 		{
 			try

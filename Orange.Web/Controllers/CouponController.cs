@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Orange.Web.Models;
 using Orange.Web.Service.IService;
+using System.Collections.Generic;
 
 namespace Orange.Web.Controllers
 {
@@ -22,6 +23,9 @@ namespace Orange.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<CouponDto>>(Convert.ToString(response.Result));
+
+                // Sort the list in descending order (assuming there's an Id or CreatedDate field)
+                list = list.OrderByDescending(c => c.CouponId).ToList();
             }
 
             return View(list);
@@ -33,5 +37,21 @@ namespace Orange.Web.Controllers
             return View();
         }
 
-	}
+        [HttpPost]
+        public async Task<IActionResult> CouponCreate(CouponDto model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                ResponseDto? response = await _couponService.CreateCouponAsync(model);
+
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CouponIndex));
+                }
+            }
+            return View(model);
+        }
+        
+    }
 }
