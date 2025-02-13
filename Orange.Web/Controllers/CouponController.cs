@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Orange.Web.Models;
 using Orange.Web.Service.IService;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Orange.Web.Controllers
 {
@@ -52,6 +53,35 @@ namespace Orange.Web.Controllers
             }
             return View(model);
         }
-        
+
+
+  
+        public async Task<IActionResult> CouponDelete(int couponId)
+        {
+            ResponseDto? response = await _couponService.DeleteCouponAsync(couponId);
+
+            if (response != null && response.IsSuccess)
+            {
+                CouponDto? model = JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(response.Result));
+
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CouponDelete(CouponDto zincouponDto)
+        {
+            ResponseDto? response = await _couponService.DeleteCouponAsync(zincouponDto.CouponId);
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(CouponIndex));
+
+                
+            }
+            return View(zincouponDto);
+        }
+
     }
 }
