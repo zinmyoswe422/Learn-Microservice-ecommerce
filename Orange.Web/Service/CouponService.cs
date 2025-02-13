@@ -49,7 +49,7 @@ namespace Orange.Web.Service
             return await _baseService.SendSync(new RequestDto()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.CouponAPIBase + "/api/coupon"+ couponCode
+                Url = SD.CouponAPIBase + "/api/coupon/GetZinByCode/" + couponCode
 
             });
         }

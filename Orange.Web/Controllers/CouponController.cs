@@ -28,6 +28,10 @@ namespace Orange.Web.Controllers
                 // Sort the list in descending order (assuming there's an Id or CreatedDate field)
                 list = list.OrderByDescending(c => c.CouponId).ToList();
             }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
 
             return View(list);
         }
@@ -48,9 +52,15 @@ namespace Orange.Web.Controllers
 
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(CouponIndex));
+                    TempData["success"] = "Coupon Created successfully";
+
+					return RedirectToAction(nameof(CouponIndex));
                 }
-            }
+				else
+				{
+					TempData["error"] = response?.Message;
+				}
+			}
             return View(model);
         }
 
@@ -58,7 +68,7 @@ namespace Orange.Web.Controllers
   
         public async Task<IActionResult> CouponDelete(int couponId)
         {
-            ResponseDto? response = await _couponService.DeleteCouponAsync(couponId);
+            ResponseDto? response = await _couponService.GetCouponByIdAsync(couponId);
 
             if (response != null && response.IsSuccess)
             {
@@ -66,23 +76,32 @@ namespace Orange.Web.Controllers
 
                 return View(model);
             }
-            return NotFound();
+			else
+			{
+				TempData["error"] = response?.Message;
+			}
+			return NotFound();
         }
 
    
 
 		[HttpPost]
-		public async Task<IActionResult> CouponDelete(CouponDto zincouponDto)
+		public async Task<IActionResult> CouponDelete(CouponDto couponDto)
 		{
-			ResponseDto? response = await _couponService.DeleteCouponAsync(zincouponDto.CouponId);
+			ResponseDto? response = await _couponService.DeleteCouponAsync(couponDto.CouponId);
 
 			if (response != null && response.IsSuccess)
 			{
+                TempData["success"] = "Coupon deleted successfully";
 				return RedirectToAction(nameof(CouponIndex));
 
 
 			}
-			return View(zincouponDto);
+			else
+			{
+				TempData["error"] = response?.Message;
+			}
+			return View(couponDto);
 		}
 
 	}
