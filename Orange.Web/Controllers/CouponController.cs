@@ -69,19 +69,21 @@ namespace Orange.Web.Controllers
             return NotFound();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CouponDelete(CouponDto zincouponDto)
-        {
-            ResponseDto? response = await _couponService.DeleteCouponAsync(zincouponDto.CouponId);
+   
 
-            if (response != null && response.IsSuccess)
-            {
-                return RedirectToAction(nameof(CouponIndex));
+		[HttpPost]
+		public async Task<IActionResult> CouponDelete(CouponDto zincouponDto)
+		{
+			ResponseDto? response = await _couponService.DeleteCouponAsync(zincouponDto.CouponId);
 
-                
-            }
-            return View(zincouponDto);
-        }
+			if (response != null && response.IsSuccess)
+			{
+				return RedirectToAction(nameof(CouponIndex));
 
-    }
+
+			}
+			return View(zincouponDto);
+		}
+
+	}
 }
