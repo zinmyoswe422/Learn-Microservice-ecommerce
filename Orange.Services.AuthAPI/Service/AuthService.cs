@@ -24,9 +24,44 @@ namespace Orange.Services.AuthAPI.Service
             throw new NotImplementedException();
         }
 
-        public Task<UserDto> Register(RegisterationRequestDto registerationRequestDto)
+        public async Task<string> Register(RegisterationRequestDto registerationRequestDto)
         {
-            throw new NotImplementedException();
+            ApplicationUser user = new()
+            {
+                UserName = registerationRequestDto.Email,
+                Email = registerationRequestDto.Email,
+                NormalizedEmail = registerationRequestDto.Email.ToUpper(),
+                Name = registerationRequestDto.Name,
+                PhoneNumber = registerationRequestDto.PhoneNumber,
+            };
+
+            try
+            {
+                var result = await _userManager.CreateAsync(user, registerationRequestDto.Password);
+                if (result.Succeeded)
+                {
+                    var userToReturn = _db.ApplicationUsers.First(u => u.UserName == registerationRequestDto.Email);
+
+                    UserDto userDto = new()
+                    {
+                        Email = userToReturn.Email,
+                        ID = userToReturn.Id,
+                        Name = userToReturn.Name,
+                        PhoneNumber = userToReturn.PhoneNumber
+                    };
+                    return "";
+                }
+                else 
+                {
+                    return result.Errors.FirstOrDefault().Description;
+                }
+            }
+            catch (Exception ex) 
+            {
+            
+            }
+
+            return "Error Encountered";
         }
     }
 }
