@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Orange.Services.AuthAPI.Data;
 using Orange.Services.AuthAPI.Models;
 using Orange.Services.AuthAPI.Models.Dto;
@@ -11,6 +12,7 @@ namespace Orange.Services.AuthAPI.Service
         private readonly AppDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+    
 
         public AuthService(AppDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -19,9 +21,32 @@ namespace Orange.Services.AuthAPI.Service
             _roleManager = roleManager;
         }
 
-        public Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
+        public async Task<LoginResponseDto> Login(LoginRequestDto loginRequestDto)
         {
-            throw new NotImplementedException();
+            var user = _db.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDto.Username.ToLower());
+
+            bool isValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+
+            if (user == null || isValid == false)
+
+            {
+                return new LoginResponseDto() { User = null, Token = "" };
+            }
+
+            UserDto userDTO = new()
+            {
+                Email = user.Email,
+                ID =user.Id,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            LoginResponseDto loginResponseDto = new LoginResponseDto()
+            {
+                User = userDTO,
+                Token = ""
+            };
+            return loginResponseDto;
         }
 
         public async Task<string> Register(RegisterationRequestDto registerationRequestDto)
